@@ -1,5 +1,5 @@
 import prisma from "@/prisma/client";
-import { NextResponse, type NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import bcrypt from "bcrypt";
 import { exclude } from "@/lib/exlude";
@@ -65,8 +65,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id?: string[
   if (!oldData) return NextResponse.json({ message: "Data not found" }, { status: 404 });
 
   if (body.password) {
-    const hashedPw = await bcrypt.hash(body.password, 10);
-    body.password = hashedPw;
+    body.password = await bcrypt.hash(body.password, 10);
   }
 
   body = exclude({ ...oldData, ...body }, ["id"]);
