@@ -41,9 +41,9 @@ model Order {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   total_order Int
   comment     String?
-  menu        Menu     @relation(fields: [menuId], references: [id])
+  menu        Menu     @relation(fields: [menuId], references: [id], onDelete: Cascade)
   menuId      String   @db.ObjectId
-  user        User     @relation(fields: [userId], references: [id])
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String   @db.ObjectId
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

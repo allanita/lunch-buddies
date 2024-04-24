@@ -14,7 +14,7 @@ export async function POST(req: NextRequest, { params }: { params: { id?: string
   if (params.id && params.id.length > 0) return NextResponse.json({ message: "Invalid url" }, { status: 404 });
 
   const orderSchema = z.object({
-    total_order: z.number(),
+    total_order: z.number().gte(1),
     comment: z.string().nullish(),
     menuId: z.string(),
     userId: z.string(),
